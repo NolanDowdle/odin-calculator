@@ -36,15 +36,15 @@ const operate = function(operation, number1, number2) {
     secondNumber = "";
     operater = null;
     if(operation === "+") {
-        globalText = add(parseInt(number1), parseInt(number2));
+        globalText = add(parseFloat(number1), parseFloat(number2));
     } else if (operation === "-") {
-        globalText = minus(parseInt(number1), parseInt(number2));
+        globalText = minus(parseFloat(number1), parseFloat(number2));
     } else if (operation === "X") {
-        globalText = multiply(parseInt(number1), parseInt(number2));
+        globalText = multiply(parseFloat(number1), parseFloat(number2));
     } else if (operation === "/") {
-        globalText = divide(parseInt(number1), parseInt(number2));
+        globalText = divide(parseFloat(number1), parseFloat(number2));
     } else {
-        console.log("Error");
+        throw new Error("No operater selected!");
     }
     return globalText;
 }
@@ -164,7 +164,7 @@ buttonAdd.addEventListener('click', () => {
             globalText = globalText + " + ";
             display.innerHTML = globalText;
         } else {
-            console.log("ERROR!!");
+            throw new Error("Error! No second number selected!");
         }
     }
 });
@@ -187,7 +187,7 @@ buttonMinus.addEventListener('click', () => {
             globalText = globalText + " - ";
             display.innerHTML = globalText;
         } else {
-            console.log("ERROR!");
+            throw new Error("Error! No second number selected!");
         }
     }
 });
@@ -211,7 +211,7 @@ buttonMultiply.addEventListener('click', () => {
             globalText = globalText + " * ";
             display.innerHTML = globalText;
         } else {
-            console.log("Error!");
+            throw new Error("Error! No second number selected!");
         }
     }
 });
@@ -234,6 +234,8 @@ buttonDivide.addEventListener('click', () => {
             readyForSecondNumber = true;
             globalText = globalText + " / ";
             display.innerHTML = globalText;
+        } else {
+            throw new Error("Error! No second number selected!");
         }
     }
 });
@@ -241,8 +243,22 @@ buttonDivide.addEventListener('click', () => {
 buttonDecimal.addEventListener('click', () => {
     // need to check if the string has a decimal yet in the current
     // number, we cannot have 2 decimal in 1 number but can have in other number
-    globalText = globalText + ".";
-    display.innerHTML = globalText;
+    if (readyForSecondNumber != true) {
+        if(globalText.includes(".") === true) {
+            throw new Error("ERROR: CANNOT HAVE 2 DECIMALS IN 1 NUMBER!");
+        } else {
+            globalText = globalText + ".";
+            display.innerHTML = globalText;
+        }
+    } else {
+        if(secondNumber.includes('.') === true) {
+            throw new Error("ERROR: CANNOT HAVE 2 DECIMALS IN 1 NUMBER!");
+        } else {
+            globalText = globalText + ".";
+            display.innerHTML = globalText;
+            secondNumber = secondNumber + ".";
+        }
+    }
 });
 
 buttonEquals.addEventListener('click', () => {
@@ -252,7 +268,7 @@ buttonEquals.addEventListener('click', () => {
         firstNumber = globalText;
         display.innerHTML = globalText;
     } else {
-        console.log("ERROR!!!");
+        throw new Error("Cannot use equals button if there is no second number!");
     }
 });
 
