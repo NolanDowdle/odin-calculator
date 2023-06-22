@@ -1,15 +1,14 @@
 body {
     margin: 0;
     padding: 0;
-    background: #000;
+    background: gray;
     overflow: hidden;
     display: flex;
     flex: 1 1 auto;
 }
 
 #p1 {
-    border-color: red;
-    border-style: solid;
+    
 }
 
 #calculator {
@@ -21,7 +20,7 @@ body {
     justify-content: center;
     background-color: gray;
     /*flex: 1 1 0;*/
-    border-color: red;
+    border-color: black;
     border-style: solid;
     border-radius: 10px;
     overflow: hidden;
